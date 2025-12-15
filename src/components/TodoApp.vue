@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import TodoForm from './TodoForm.vue' // 1. Import the new component
 
 const todos = ref([
   { id: 1, text: 'Learn Vue.js', completed: false },
@@ -7,19 +8,15 @@ const todos = ref([
   { id: 3, text: 'Master Reactivity', completed: false },
 ])
 
-const newTodoText = ref('')
-let nextId = 4 // Simple way to generate unique IDs
+let nextId = 4
 
-function addTodo() {
-  if (newTodoText.value.trim() === '') {
-    return // Don't add empty todos
-  }
+// 2. Create the event handler function
+function handleNewTodo(todoText) {
   todos.value.push({
     id: nextId++,
-    text: newTodoText.value,
+    text: todoText,
     completed: false,
   })
-  newTodoText.value = '' // Clear the input field
 }
 </script>
 
@@ -27,8 +24,8 @@ function addTodo() {
   <div>
     <h2>This is the TodoApp Component</h2>
 
-    <input type="text" v-model="newTodoText" placeholder="Add a new todo" />
-    <button @click="addTodo">Add Todo</button>
+    <!-- 3. Use the new component and listen for its event -->
+    <TodoForm @add-todo="handleNewTodo" />
 
     <ul>
       <li v-for="todo in todos" :key="todo.id">
