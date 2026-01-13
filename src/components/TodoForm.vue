@@ -6,18 +6,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const newTodoText = ref('');
+const newTodoText = ref('')
 
-const emit = defineEmits(['add-todo']);
+const emit = defineEmits(['add-todo'])
 
 const addTodo = () => {
   if (newTodoText.value.trim()) {
-    emit('add-todo', newTodoText.value.trim());
-    newTodoText.value = '';
+    emit('add-todo', newTodoText.value.trim())
+    newTodoText.value = ''
   }
-};
+}
 </script>
 
 <style scoped>
@@ -28,7 +28,7 @@ form {
   margin-bottom: 20px;
 }
 
-input[type="text"] {
+input[type='text'] {
   flex-grow: 1;
   padding: 8px;
   border: 1px solid #ccc;

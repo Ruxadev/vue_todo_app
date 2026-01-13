@@ -10,7 +10,7 @@
     4.  [x] **Reactivity & State:** I'll introduce you to the "magic" of Vue: reactivity. You'll learn how to store data (our list of todos) and have the user interface update automatically when that data changes.
     5.  [x] **Handling User Input:** We'll build a form so you can type in a new todo and add it to your list. This will cover handling events and binding data from an input field.
     6.  [x] **Displaying Lists:** We'll render your list of todos on the screen, learning how Vue can loop over data to create dynamic content.
-    7.  **Parent-Child Communication (Props & Events):** We'll break the app into smaller, reusable components. You'll learn how to pass data *down* from a parent to a child (using "props") and how to send messages *up* from a child to a parent (using "events"). This is key to building complex apps.
+    7.  [x] **Parent-Child Communication (Props & Events):** We'll break the app into smaller, reusable components. You'll learn how to pass data *down* from a parent to a child (using "props") and how to send messages *up* from a child to a parent (using "events"). This is key to building complex apps.
     8.  **Deleting Todos:** We'll use the "events" concept from the previous step to add a delete button to each todo item.
     9.  **Computed Properties:** We'll explore a powerful Vue feature for calculating information based on your data, like creating a counter for "incomplete" todos.
 
