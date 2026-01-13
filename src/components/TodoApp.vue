@@ -32,6 +32,14 @@ function toggleComplete(idToToggle) {
     todoToToggle.completed = !todoToToggle.completed
   }
 }
+
+// Method to handle the update event
+function updateTodo(idToUpdate, newText) {
+  const todoToUpdate = todos.value.find((todo) => todo.id === idToUpdate)
+  if (todoToUpdate) {
+    todoToUpdate.text = newText
+  }
+}
 </script>
 
 <template>
@@ -47,6 +55,7 @@ function toggleComplete(idToToggle) {
         :todo="todo"
         @delete-todo="deleteTodo"
         @toggle-complete="toggleComplete"
+        @update-todo="updateTodo"
       />
     </ul>
   </div>
