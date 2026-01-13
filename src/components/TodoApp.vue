@@ -1,50 +1,73 @@
 <script setup>
-import { ref, computed } from 'vue' // Import computed
-import TodoForm from './TodoForm.vue'
-import TodoItem from './TodoItem.vue' // Import the new component
+import { ref, computed, watch } from 'vue'
+import TodoForm from './TodoForm.vue';
+import TodoItem from './TodoItem.vue';
 
-const todos = ref([
-  { id: 1, text: 'Learn Vue.js', completed: false },
-  { id: 2, text: 'Build a to do App', completed: true },
-  { id: 3, text: 'Master Reactivity', completed: false },
-])
+// --- Persistence Logic: Loading (FIXED) ---
+// This function safely loads todos from localStorage.
+function loadInitialTodos() {
+  const savedTodosJSON = localStorage.getItem('todos');
+  if (savedTodosJSON) {
+    try {
+      // If data exists and is valid JSON, parse and return it.
+      return JSON.parse(savedTodosJSON);
+    } catch (e) {
+      console.error("Error parsing todos from localStorage:", e);
+      // If data is corrupted, fall back to the default list.
+    }
+  }
+  // If no data exists, return the default list.
+  return [
+    { id: 1, text: 'Learn Vue.js', completed: false },
+    { id: 2, text: 'Build a to do App', completed: true },
+    { id: 3, text: 'Master Reactivity', completed: false }
+  ];
+}
 
-let nextId = 4
+const todos = ref(loadInitialTodos());
 
-// Renamed for clarity
+// Ensure nextId is always higher than the highest existing ID.
+let nextId = ref(Math.max(0, ...todos.value.map(t => t.id)) + 1);
+
+// --- Persistence Logic: Saving ---
+// Watch the todos array for any changes and save them to Local Storage.
+watch(todos, (newTodos) => {
+  localStorage.setItem('todos', JSON.stringify(newTodos));
+}, { deep: true });
+
+
+// --- Component Methods ---
+
 function addTodo(todoText) {
   todos.value.push({
-    id: nextId++,
+    id: nextId.value++,
     text: todoText,
-    completed: false,
-  })
+    completed: false
+  });
 }
 
-// Method to handle the delete event
 function deleteTodo(idToDelete) {
-  todos.value = todos.value.filter((todo) => todo.id !== idToDelete)
+  todos.value = todos.value.filter((todo) => todo.id !== idToDelete);
 }
 
-// Method to handle the toggle event
 function toggleComplete(idToToggle) {
-  const todoToToggle = todos.value.find((todo) => todo.id === idToToggle)
+  const todoToToggle = todos.value.find((todo) => todo.id === idToToggle);
   if (todoToToggle) {
-    todoToToggle.completed = !todoToToggle.completed
+    todoToToggle.completed = !todoToToggle.completed;
   }
 }
 
-// Method to handle the update event
 function updateTodo(idToUpdate, newText) {
-  const todoToUpdate = todos.value.find((todo) => todo.id === idToUpdate)
+  const todoToUpdate = todos.value.find((todo) => todo.id === idToUpdate);
   if (todoToUpdate) {
-    todoToUpdate.text = newText
+    todoToUpdate.text = newText;
   }
 }
 
 // Computed property for incomplete todos count
 const incompleteTodosCount = computed(() => {
-  return todos.value.filter((todo) => !todo.completed).length
-})
+  return todos.value.filter(todo => !todo.completed).length;
+});
 </script>
 
 <template>
