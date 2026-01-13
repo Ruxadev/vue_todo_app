@@ -5,7 +5,7 @@ import TodoItem from './TodoItem.vue' // Import the new component
 
 const todos = ref([
   { id: 1, text: 'Learn Vue.js', completed: false },
-  { id: 2, text: 'Build a Todo App', completed: false },
+  { id: 2, text: 'Build a Todo App', completed: true },
   { id: 3, text: 'Master Reactivity', completed: false }
 ])
 
@@ -24,6 +24,14 @@ function addTodo(todoText) {
 function deleteTodo(idToDelete) {
   todos.value = todos.value.filter((todo) => todo.id !== idToDelete)
 }
+
+// Method to handle the toggle event
+function toggleComplete(idToToggle) {
+  const todoToToggle = todos.value.find((todo) => todo.id === idToToggle)
+  if (todoToToggle) {
+    todoToToggle.completed = !todoToToggle.completed
+  }
+}
 </script>
 
 <template>
@@ -38,6 +46,7 @@ function deleteTodo(idToDelete) {
         :key="todo.id"
         :todo="todo"
         @delete-todo="deleteTodo"
+        @toggle-complete="toggleComplete"
       />
     </ul>
   </div>

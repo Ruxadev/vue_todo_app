@@ -1,6 +1,12 @@
 <template>
   <li class="todo-item">
-    <span>{{ todo.text }}</span>
+    <span
+      @click="toggleComplete"
+      :class="{ completed: todo.completed }"
+      class="todo-text"
+    >
+      {{ todo.text }}
+    </span>
     <button @click="deleteTodo" class="delete-button">Delete</button>
   </li>
 </template>
@@ -15,10 +21,14 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['delete-todo']);
+const emit = defineEmits(['delete-todo', 'toggle-complete']);
 
 const deleteTodo = () => {
   emit('delete-todo', props.todo.id);
+};
+
+const toggleComplete = () => {
+  emit('toggle-complete', props.todo.id);
 };
 </script>
 
@@ -35,10 +45,16 @@ const deleteTodo = () => {
   border-bottom: none;
 }
 
-span {
+.todo-text {
   flex-grow: 1;
   margin-right: 10px;
   word-break: break-word;
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #aaa;
 }
 
 .delete-button {
