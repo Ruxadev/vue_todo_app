@@ -1,10 +1,7 @@
 <template>
   <li class="todo-item">
-    <span
-      @click="toggleComplete"
-      :class="{ completed: todo.completed }"
-      class="todo-text"
-    >
+    <input type="checkbox" :checked="todo.completed" @change="toggleComplete" class="todo-checkbox" />
+    <span :class="{ completed: todo.completed }" class="todo-text">
       {{ todo.text }}
     </span>
     <button @click="deleteTodo" class="delete-button">Delete</button>
@@ -35,8 +32,7 @@ const toggleComplete = () => {
 <style scoped>
 .todo-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Vertically align items */
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
@@ -45,11 +41,14 @@ const toggleComplete = () => {
   border-bottom: none;
 }
 
+.todo-checkbox {
+  margin-right: 10px; /* Space between checkbox and text */
+}
+
 .todo-text {
   flex-grow: 1;
   margin-right: 10px;
   word-break: break-word;
-  cursor: pointer;
 }
 
 .completed {
