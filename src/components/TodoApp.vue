@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue' // Import computed
 import TodoForm from './TodoForm.vue'
 import TodoItem from './TodoItem.vue' // Import the new component
 
@@ -40,6 +40,11 @@ function updateTodo(idToUpdate, newText) {
     todoToUpdate.text = newText
   }
 }
+
+// Computed property for incomplete todos count
+const incompleteTodosCount = computed(() => {
+  return todos.value.filter(todo => !todo.completed).length;
+});
 </script>
 
 <template>
@@ -47,6 +52,8 @@ function updateTodo(idToUpdate, newText) {
     <h2>This is the TodoApp Component</h2>
 
     <TodoForm @add-todo="addTodo" />
+
+    <p>Incomplete Todos: {{ incompleteTodosCount }}</p> <!-- Display computed property -->
 
     <ul>
       <TodoItem
