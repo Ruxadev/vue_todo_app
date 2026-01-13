@@ -5,8 +5,8 @@ import TodoItem from './TodoItem.vue' // Import the new component
 
 const todos = ref([
   { id: 1, text: 'Learn Vue.js', completed: false },
-  { id: 2, text: 'Build a Todo App', completed: true },
-  { id: 3, text: 'Master Reactivity', completed: false }
+  { id: 2, text: 'Build a to do App', completed: true },
+  { id: 3, text: 'Master Reactivity', completed: false },
 ])
 
 let nextId = 4
@@ -16,7 +16,7 @@ function addTodo(todoText) {
   todos.value.push({
     id: nextId++,
     text: todoText,
-    completed: false
+    completed: false,
   })
 }
 
@@ -43,17 +43,18 @@ function updateTodo(idToUpdate, newText) {
 
 // Computed property for incomplete todos count
 const incompleteTodosCount = computed(() => {
-  return todos.value.filter(todo => !todo.completed).length;
-});
+  return todos.value.filter((todo) => !todo.completed).length
+})
 </script>
 
 <template>
   <div>
-    <h2>This is the TodoApp Component</h2>
+    <h2>This is the To-Do App</h2>
 
     <TodoForm @add-todo="addTodo" />
 
-    <p>Incomplete Todos: {{ incompleteTodosCount }}</p> <!-- Display computed property -->
+    <p>Incomplete To Dos: {{ incompleteTodosCount }}</p>
+    <!-- Display computed property -->
 
     <ul>
       <TodoItem

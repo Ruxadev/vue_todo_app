@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="addTodo">
-    <input type="text" v-model="newTodoText" placeholder="Add a new todo..." />
+    <input type="text" v-model="newTodoText" placeholder="Add a new to do..." />
     <button type="submit">Add Todo</button>
   </form>
 </template>
