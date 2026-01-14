@@ -1,12 +1,20 @@
 <template>
   <form @submit.prevent="addTodo">
-    <input type="text" v-model="newTodoText" placeholder="Add a new to do..." />
-    <button type="submit">Add To Do</button>
+    <ion-item>
+      <ion-input
+        v-model="newTodoText"
+        placeholder="Add a new to do..."
+        clear-input="true"
+        aria-label="New todo text"
+      ></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" class="ion-margin-top">Add To Do</ion-button>
   </form>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { IonItem, IonInput, IonButton } from '@ionic/vue'
 
 const newTodoText = ref('')
 
@@ -21,30 +29,5 @@ const addTodo = () => {
 </script>
 
 <style scoped>
-/* Basic styling for the form */
-form {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-input[type='text'] {
-  flex-grow: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  padding: 8px 15px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #369b6e;
-}
+/* Scoped styles can be added here if further customization is needed */
 </style>
