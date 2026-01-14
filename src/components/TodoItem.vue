@@ -1,33 +1,58 @@
 <template>
-  <li class="todo-item">
-    <input type="checkbox" :checked="todo.completed" @change="toggleComplete" class="todo-checkbox" />
+  <ion-item>
+    <ion-checkbox
+      :checked="todo.completed"
+      @ionChange="toggleComplete"
+      slot="start"
+      aria-label="Toggle complete"
+    ></ion-checkbox>
 
-    <div v-if="isEditing" class="edit-mode">
-      <input
-        type="text"
-        v-model.trim="editedText"
+    <!-- Edit Mode -->
+    <div v-if="isEditing" class="edit-container">
+      <ion-input
+        v-model="editedText"
         @keyup.enter="finishEditing"
         @keyup.esc="cancelEditing"
-        @blur="finishEditing"
+        autofocus="true"
         class="edit-input"
-      />
-      <button @click="finishEditing" class="save-button">Save</button>
-      <button @click="cancelEditing" class="cancel-button">Cancel</button>
+        aria-label="Edit todo text"
+      ></ion-input>
+      <ion-button @click="finishEditing" fill="clear" aria-label="Save">
+        <ion-icon slot="icon-only" :icon="checkmarkOutline"></ion-icon>
+      </ion-button>
+      <ion-button @click="cancelEditing" fill="clear" color="danger" aria-label="Cancel">
+        <ion-icon slot="icon-only" :icon="closeOutline"></ion-icon>
+      </ion-button>
     </div>
 
-    <div v-else class="view-mode">
-      <span :class="{ completed: todo.completed }" class="todo-text">
+    <!-- View Mode -->
+    <div v-else class="view-container">
+      <ion-label :class="{ completed: todo.completed }">
         {{ todo.text }}
-      </span>
-      <button @click="startEditing" class="edit-button">Edit</button>
-      <button @click="deleteTodo" class="delete-button">Delete</button>
+      </ion-label>
+      <ion-button @click="startEditing" fill="clear" aria-label="Edit">
+        <ion-icon slot="icon-only" :icon="createOutline"></ion-icon>
+      </ion-button>
+      <ion-button @click="deleteTodo" fill="clear" color="danger" aria-label="Delete">
+        <ion-icon slot="icon-only" :icon="trashOutline"></ion-icon>
+      </ion-button>
     </div>
-  </li>
+
+  </ion-item>
 </template>
 
 <script setup>
-import { ref } from 'vue'; // Import ref for local state management
+import { ref } from 'vue';
 import { defineProps, defineEmits } from 'vue';
+import {
+  IonItem,
+  IonCheckbox,
+  IonLabel,
+  IonButton,
+  IonIcon,
+  IonInput
+} from '@ionic/vue';
+import { createOutline, trashOutline, checkmarkOutline, closeOutline } from 'ionicons/icons';
 
 const props = defineProps({
   todo: {
@@ -36,10 +61,10 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['delete-todo', 'toggle-complete', 'update-todo']); // Add update-todo event
+const emit = defineEmits(['delete-todo', 'toggle-complete', 'update-todo']);
 
-const isEditing = ref(false); // Local state to control edit mode
-const editedText = ref(props.todo.text); // Local state for the input field
+const isEditing = ref(false);
+const editedText = ref(props.todo.text);
 
 const deleteTodo = () => {
   emit('delete-todo', props.todo.id);
@@ -51,7 +76,7 @@ const toggleComplete = () => {
 
 const startEditing = () => {
   isEditing.value = true;
-  editedText.value = props.todo.text; // Ensure editedText is current when starting edit
+  editedText.value = props.todo.text;
 };
 
 const finishEditing = () => {
@@ -63,86 +88,29 @@ const finishEditing = () => {
 
 const cancelEditing = () => {
   isEditing.value = false;
-  editedText.value = props.todo.text; // Revert changes if cancelled
+  editedText.value = props.todo.text;
 };
 </script>
 
 <style scoped>
-.todo-item {
-  display: flex;
-  align-items: center; /* Vertically align items */
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.todo-item:last-child {
-  border-bottom: none;
-}
-
-.todo-checkbox {
-  margin-right: 10px; /* Space between checkbox and text */
-}
-
-.view-mode, .edit-mode {
-  display: flex;
-  flex-grow: 1; /* Allow these modes to take available space */
-  align-items: center;
-}
-
-.todo-text {
-  flex-grow: 1;
-  margin-right: 10px;
-  word-break: break-word;
-}
-
 .completed {
   text-decoration: line-through;
-  color: #aaa;
+  color: var(--ion-color-medium);
 }
 
-.edit-mode .edit-input {
+.edit-container, .view-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+ion-label {
   flex-grow: 1;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 5px;
+  margin-right: 10px;
+  white-space: normal; /* Allow text to wrap */
 }
 
-.edit-button, .save-button, .cancel-button {
-  background-color: #4CAF50; /* Green */
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 5px;
-  transition: background-color 0.2s;
-}
-
-.edit-button:hover, .save-button:hover {
-  background-color: #45a049;
-}
-
-.cancel-button {
-  background-color: #f44336; /* Red */
-}
-
-.cancel-button:hover {
-  background-color: #da190b;
-}
-
-.delete-button {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 5px; /* Add margin for spacing */
-  transition: background-color 0.2s;
-}
-
-.delete-button:hover {
-  background-color: #cc0000;
+.edit-input {
+  flex-grow: 1;
 }
 </style>
