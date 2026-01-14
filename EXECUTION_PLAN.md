@@ -1,18 +1,20 @@
 ### **Execution Plan: The Vue, Ionic & Rails Masterclass**
 
-#### **Phase 1: Vue.js Fundamentals (Building the Web App)**
+#### **Phase 1: Vue.js Fundamentals (Building the Web App) - COMPLETE**
 
 *   **Objective:** To build a fully functional Todo application in your web browser. By the end of this phase, you will have a rock-solid understanding of the core principles of Vue.js.
 *   **Steps:**
-    1.  [x] **Project Setup:** We'll use the official Vue tools to create a new, modern Vue project from scratch.
-    2.  [x] **Understanding the Vue Ecosystem:** I'll walk you through the files and folders created, explaining the purpose of each one (`main.js`, `App.vue`, `package.json`, etc.).
-    3.  [x] **Your First Component:** We'll create our first Vue "Single-File Component" (SFC). This is the fundamental building block of a Vue application, and you'll learn about its three parts: `<template>`, `<script>`, and `<style>`.
-    4.  [x] **Reactivity & State:** I'll introduce you to the "magic" of Vue: reactivity. You'll learn how to store data (our list of todos) and have the user interface update automatically when that data changes.
-    5.  [x] **Handling User Input:** We'll build a form so you can type in a new todo and add it to your list. This will cover handling events and binding data from an input field.
-    6.  [x] **Displaying Lists:** We'll render your list of todos on the screen, learning how Vue can loop over data to create dynamic content.
-    7.  [x] **Parent-Child Communication (Props & Events):** We'll break the app into smaller, reusable components. You'll learn how to pass data *down* from a parent to a child (using "props") and how to send messages *up* from a child to a parent (using "events"). This is key to building complex apps.
-    8.  **Deleting Todos:** We'll use the "events" concept from the previous step to add a delete button to each todo item.
-    9.  **Computed Properties:** We'll explore a powerful Vue feature for calculating information based on your data, like creating a counter for "incomplete" todos.
+    1.  [x] **Project Setup:** Used the official Vue tools to create a new, modern Vue project from scratch.
+    2.  [x] **Understanding the Vue Ecosystem:** Walked through the created files and folders, explaining the purpose of each one.
+    3.  [x] **Your First Component:** Created our first Vue "Single-File Component" (SFC) and learned about its three parts: `<template>`, `<script>`, and `<style>`.
+    4.  [x] **Reactivity & State:** Introduced Vue's reactivity system (`ref`) to store the list of to-dos and automatically update the UI.
+    5.  [x] **Handling User Input:** Built a form to add new to-dos, covering event handling and data binding.
+    6.  [x] **Displaying Lists:** Rendered the list of to-dos using the `v-for` directive.
+    7.  [x] **Parent-Child Communication (Props & Events):** Broke the app into smaller components and passed data down with "props" and sent messages up with "events".
+    8.  [x] **Deleting To-Dos:** Used the "events" concept to add a delete button and functionality.
+    9.  [x] **Editing To-Dos (Toggle & In-Place):** Implemented the ability to mark to-dos as complete (toggle) and to edit their text directly.
+    10. [x] **Computed Properties:** Explored computed properties to efficiently calculate derived data, like the count of incomplete to-dos.
+    11. [x] **Persistence with Local Storage:** Made the app state persistent across page reloads by saving and loading the to-do list from the browser's Local Storage.
 
 #### **Phase 2: Going Mobile with Ionic & Capacitor**
 
