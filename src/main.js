@@ -20,10 +20,22 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
+// Vue Router imports
+import { createRouter, createWebHistory } from '@ionic/vue-router'; // Using @ionic/vue-router specifically
+
+// Create a router instance
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    // This is where our routes would go. For now, we'll leave it empty
+    // as we are not creating different pages yet.
+  ],
+});
 
 const app = createApp(App)
   .use(IonicVue, {
     mode: 'ios' // Set default mode to iOS for consistency, or 'md' for Material Design
-  });
+  })
+  .use(router); // Tell Vue to use the router
 
 app.mount('#app');
