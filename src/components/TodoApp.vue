@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import TodoForm from './TodoForm.vue';
 import TodoItem from './TodoItem.vue';
+import { IonList, IonListHeader, IonLabel } from '@ionic/vue';
 
 // --- Persistence Logic: Loading (FIXED) ---
 // This function safely loads todos from localStorage.
@@ -71,25 +72,23 @@ const incompleteTodosCount = computed(() => {
 </script>
 
 <template>
-  <div>
-    <h2>This is the To-Do App</h2>
+  <TodoForm @add-todo="addTodo" />
 
-    <TodoForm @add-todo="addTodo" />
+  <p style="text-align: center; margin: 20px 0;">Incomplete Todos: {{ incompleteTodosCount }}</p>
 
-    <p>Incomplete To Dos: {{ incompleteTodosCount }}</p>
-    <!-- Display computed property -->
-
-    <ul>
-      <TodoItem
-        v-for="todo in todos"
-        :key="todo.id"
-        :todo="todo"
-        @delete-todo="deleteTodo"
-        @toggle-complete="toggleComplete"
-        @update-todo="updateTodo"
-      />
-    </ul>
-  </div>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Your Todos</ion-label>
+    </ion-list-header>
+    <TodoItem
+      v-for="todo in todos"
+      :key="todo.id"
+      :todo="todo"
+      @delete-todo="deleteTodo"
+      @toggle-complete="toggleComplete"
+      @update-todo="updateTodo"
+    />
+  </ion-list>
 </template>
 
 <style scoped></style>
