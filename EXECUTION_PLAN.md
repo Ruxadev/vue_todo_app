@@ -20,10 +20,11 @@
 
 *   **Objective:** To transform our Vue web app into a native-looking mobile app that can run on iOS or Android.
 *   **Steps:**
-    1.  **Introduction to Ionic & Capacitor:** I'll explain what Ionic is (a library of mobile UI components) and what Capacitor is (the bridge that lets our web code run on a mobile device).
-    2.  **Integrating Ionic:** We'll add Ionic to our existing Vue project.
-    3.  **Adapting the UI for Mobile:** We will replace our basic HTML elements (like `<button>` and `<ul>`) with Ionic's beautiful, mobile-ready components (`<ion-button>`, `<ion-list>`, etc.). This will instantly make our app look and feel like a native mobile app.
-    4.  **Running on a Mobile Simulator:** I'll guide you through the process of setting up and running your new mobile app on a local iOS or Android simulator.
+    1.  [x] **Introduction to Ionic & Capacitor:** Explained what Ionic is (a library of mobile UI components) and what Capacitor is (the bridge that lets our web code run on a mobile device).
+    2.  [x] **Integrating Ionic:** Added Ionic and its dependencies to the existing Vue project and configured it.
+    3.  [x] **Adapting the UI for Mobile:** Replaced the app's basic HTML elements with Ionic's beautiful, mobile-ready components, transforming the UI to look and feel like a native mobile app.
+    4.  [ ] **Running on a Mobile Simulator:** (In Progress) I'll guide you through the process of setting up and running your new mobile app on a local iOS or Android simulator.
+        *   **Status:** Currently debugging Android environment setup (`ANDROID_HOME` and `JAVA_HOME`).
 
 #### **Phase 3: Building the Ruby on Rails API Backend**
 
