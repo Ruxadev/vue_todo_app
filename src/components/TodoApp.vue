@@ -29,14 +29,16 @@ onMounted(() => {
 
 // --- Component Methods (Will be updated in next steps) ---
 
-let nextId = ref(Math.max(0, ...todos.value.map(t => t.id)) + 1);
+// --- Component Methods ---
 
-function addTodo(todoText) {
-  todos.value.push({
-    id: nextId.value++,
-    text: todoText,
-    completed: false
-  });
+async function addTodo(todoText) {
+  try {
+    const response = await axios.post(API_URL, { todo: { text: todoText, completed: false } });
+    todos.value.push(response.data); // Add the new todo from the API response
+  } catch (error) {
+    console.error("Error adding todo:", error);
+    // Optionally, show an error message to the user
+  }
 }
 
 function deleteTodo(idToDelete) {
