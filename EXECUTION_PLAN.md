@@ -23,15 +23,27 @@
     1.  [x] **Introduction to Ionic & Capacitor:** Explained what Ionic is (a library of mobile UI components) and what Capacitor is (the bridge that lets our web code run on a mobile device).
     2.  [x] **Integrating Ionic:** Added Ionic and its dependencies to the existing Vue project and configured it.
     3.  [x] **Adapting the UI for Mobile:** Replaced the app's basic HTML elements with Ionic's beautiful, mobile-ready components, transforming the UI to look and feel like a native mobile app.
-    4.  [ ] **Running on a Mobile Simulator:** (In Progress) I'll guide you through the process of setting up and running your new mobile app on a local iOS or Android simulator.
-        *   **Status:** Currently debugging Android environment setup (`ANDROID_HOME` and `JAVA_HOME`).
+    4.  [x] **Running on a Mobile Simulator:** Successfully set up and ran the Vue-Ionic mobile app on an Android simulator.
+        *   **Details:** Encountered and resolved several environment setup challenges:
+            *   **JDK Installation & `JAVA_HOME`:** Located and installed OpenJDK 17, and configured the `JAVA_HOME` environment variable.
+            *   **Android SDK & `ANDROID_HOME`:** Located the Android SDK installation and configured the `ANDROID_HOME` environment variable.
+            *   **Java Version Incompatibility (`invalid source release: 21`):** Debugged a persistent Java version mismatch between the installed OpenJDK 17 and the Capacitor Android build process.
+                *   **Solution:** Implemented a global override by adding a `subprojects` block to the top-level `android/build.gradle` file. This forces `sourceCompatibility` and `targetCompatibility` to `JavaVersion.VERSION_17` for all Android subprojects.
+        *   **Outcome:** The app successfully built and deployed to the Android simulator.
+    5.  [ ] **Building for iOS:** Set up and run the mobile app on a local iOS simulator.
 
-#### **Phase 3: Building the Ruby on Rails API Backend**
+#### **Phase 3: Building the Rails API Backend (Polyrepo)**
 
-*   **Objective:** To give our application a "brain" and a "memory." We will create a simple backend that can store, retrieve, and manage our todos in a real database, making the data persistent.
+*   **Objective:** To create a separate, robust backend API to handle data persistence and business logic. This will replace the browser's Local Storage with a real database.
+*   **Architecture:** We are using a decoupled **"polyrepo"** approach, managing the frontend (`vue-todo-app`) and backend (`todo-api`) in two separate, independent Git repositories.
+
 *   **Steps:**
-    1.  **Rails API Project Setup:** We will create a new, lightweight Ruby on Rails project specifically designed to be an API.
-    2.  **Database & Model:** Just like in the example you gave, we'll create a `Todo` "model" and a database "migration" to define the blueprint for our `todos` table in the database.
-    3.  **Routes & Controller:** We'll define the API endpoints (the URLs our app will talk to) and create a "controller" to handle incoming requests for creating, reading, and deleting todos.
-    4.  **Enabling Communication (CORS):** I'll explain a critical real-world concept called CORS (Cross-Origin Resource Sharing) and we'll configure it in Rails so our Vue/Ionic app is allowed to communicate with our API.
-    5.  **Connecting the Frontend to the Backend:** We'll go back to our Vue app and replace our temporary, in-memory todo list with real network requests to our Rails API to fetch and modify data.
+    1.  [x] **Setup Rails API Project:** Created a new Rails 7+ application in `--api` mode in a separate `todo-api` directory.
+    2.  [x] **Initialize Git Repository:** Established a new, separate Git repository for the `todo-api` project and pushed the initial commit to its own repository on GitHub.
+    3.  [x] **Generate Location Model:** Created the `Location` model and its corresponding database migration file (`db/migrate/..._create_locations.rb`) to define the structure for storing location names.
+    4.  [ ] **Run Database Migration:** The next step is to run `rails db:migrate` to apply the migration, which will create the `locations` table in the development database.
+    5.  [ ] **Generate Todo Model:** Create a `Todo` model with attributes like `task:string`, `completed:boolean`, and a reference to the `Location` model.
+    6.  [ ] **Define API Routes:** Set up RESTful routes for `locations` and `todos`.
+    7.  [ ] **Implement Controllers:** Build out the `LocationsController` and `TodosController` to handle CRUD (Create, Read, Update, Delete) operations.
+    8.  [ ] **Enable Communication (CORS):** Configure Cross-Origin Resource Sharing in Rails to allow the Vue/Ionic frontend (running on a different origin) to make requests to this API.
+    9.  [ ] **Connect Frontend to Backend:** Modify the Vue app to stop using Local Storage and instead make HTTP requests to the Rails API to fetch and manage data.

@@ -1,0 +1,16 @@
+# Project Memory & Status
+
+## Overall Goal
+Connect the `vue-todo-app` frontend to the `todo-api` backend, replacing Local Storage with live API calls.
+
+## Progress So Far
+- The `todo-api` backend is 100% complete and ready. All CRUD endpoints for Locations and Todos are functional.
+- CORS has been configured on the backend to allow requests.
+
+## The Blocker
+- We have been unable to work on the `vue-todo-app` because the Gemini CLI session was started in the wrong directory (`todo-api`).
+
+## Immediate Next Steps (After Restart)
+1.  **Confirm you are in a new session launched from the `/home/ruxa/Projects/VUE/vue-todo-app` directory.**
+2.  Your first prompt to me should be: "Read the gemini_memory.txt file".
+3.  My first action after reading the memory file will be to **install the `axios` library** using `npm install axios`.
