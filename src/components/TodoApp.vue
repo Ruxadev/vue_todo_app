@@ -1,43 +1,35 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios';
 import TodoForm from './TodoForm.vue';
 import TodoItem from './TodoItem.vue';
 import { IonList, IonListHeader, IonLabel } from '@ionic/vue';
 
-// --- Persistence Logic: Loading (FIXED) ---
-// This function safely loads todos from localStorage.
-function loadInitialTodos() {
-  const savedTodosJSON = localStorage.getItem('todos');
-  if (savedTodosJSON) {
-    try {
-      // If data exists and is valid JSON, parse and return it.
-      return JSON.parse(savedTodosJSON);
-    } catch (e) {
-      console.error("Error parsing todos from localStorage:", e);
-      // If data is corrupted, fall back to the default list.
-    }
+const todos = ref([]);
+const API_URL = 'http://localhost:3000/locations/1/todos'; // Using a fixed location for now
+
+// --- Data Fetching ---
+const fetchTodos = async () => {
+  try {
+    const response = await axios.get(API_URL);
+    todos.value = response.data;
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+    // Optionally, set a default or show an error message
+    todos.value = [
+      { id: -1, text: 'Error loading todos. Please try again later.', completed: false, isError: true }
+    ];
   }
-  // If no data exists, return the default list.
-  return [
-    { id: 1, text: 'Learn Vue.js', completed: false },
-    { id: 2, text: 'Build a to do App', completed: true },
-    { id: 3, text: 'Master Reactivity', completed: false }
-  ];
-}
+};
 
-const todos = ref(loadInitialTodos());
+onMounted(() => {
+  fetchTodos();
+});
 
-// Ensure nextId is always higher than the highest existing ID.
+
+// --- Component Methods (Will be updated in next steps) ---
+
 let nextId = ref(Math.max(0, ...todos.value.map(t => t.id)) + 1);
-
-// --- Persistence Logic: Saving ---
-// Watch the todos array for any changes and save them to Local Storage.
-watch(todos, (newTodos) => {
-  localStorage.setItem('todos', JSON.stringify(newTodos));
-}, { deep: true });
-
-
-// --- Component Methods ---
 
 function addTodo(todoText) {
   todos.value.push({
