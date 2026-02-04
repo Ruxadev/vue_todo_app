@@ -45,10 +45,24 @@ function deleteTodo(idToDelete) {
   todos.value = todos.value.filter((todo) => todo.id !== idToDelete);
 }
 
-function toggleComplete(idToToggle) {
-  const todoToToggle = todos.value.find((todo) => todo.id === idToToggle);
-  if (todoToToggle) {
-    todoToToggle.completed = !todoToToggle.completed;
+async function toggleComplete(idToToggle) {
+  const todo = todos.value.find((todo) => todo.id === idToToggle);
+  if (!todo) return;
+
+  try {
+    const newCompletedStatus = !todo.completed;
+    const response = await axios.patch(`${API_URL}/${idToToggle}`, {
+      todo: { completed: newCompletedStatus }
+    });
+
+    // Update the local state with the response from the server
+    const index = todos.value.findIndex(t => t.id === idToToggle);
+    if (index !== -1) {
+      todos.value[index] = response.data;
+    }
+  } catch (error) {
+    console.error("Error toggling complete status:", error);
+    // Optional: Revert the UI change if the API call fails
   }
 }
 

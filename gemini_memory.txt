@@ -1,16 +1,17 @@
-# Project Memory & Status
+## Project Status & Next Steps
 
-## Overall Goal
-Connect the `vue-todo-app` frontend to the `todo-api` backend, replacing Local Storage with live API calls.
+### Progress This Session:
+We have successfully connected the `vue-todo-app` frontend to the `todo-api` backend for the "Read" and "Create" operations.
+- **`axios` installed:** The necessary library for HTTP communication is in place.
+- **`feat: Fetch todos from API on component mount`:** The application now loads its initial todo list directly from the database when it starts, replacing the old `localStorage` logic.
+- **`feat: Implement persistent todo creation via API`:** New todos are no longer just added to the local UI; they are sent via a `POST` request and saved permanently in the backend database.
 
-## Progress So Far
-- The `todo-api` backend is 100% complete and ready. All CRUD endpoints for Locations and Todos are functional.
-- CORS has been configured on the backend to allow requests.
+### Task for Next Session:
+**My first action** in our next session must be to provide a detailed, "Masterclass"-style explanation of the following two commits, as requested:
+1.  `feat: Fetch todos from API on component mount`
+2.  `feat: Implement persistent todo creation via API`
 
-## The Blocker
-- We have been unable to work on the `vue-todo-app` because the Gemini CLI session was started in the wrong directory (`todo-api`).
-
-## Immediate Next Steps (After Restart)
-1.  **Confirm you are in a new session launched from the `/home/ruxa/Projects/VUE/vue-todo-app` directory.**
-2.  Your first prompt to me should be: "Read the gemini_memory.txt file".
-3.  My first action after reading the memory file will be to **install the `axios` library** using `npm install axios`.
+### Immediate Next Steps (After the explanation):
+Once the explanation is complete, we will proceed with the remaining Full-Stack Integration tasks:
+1.  **Implement "Update":** Refactor the `toggleComplete` function to send a `PATCH` request to the API to persist the completion status.
+2.  **Implement "Delete":** Refactor the `deleteTodo` function to send a `DELETE` request to the API to permanently remove todos from the database.
