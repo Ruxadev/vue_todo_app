@@ -21,12 +21,17 @@ import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
 // Vue Router imports
-import { createRouter, createWebHistory } from '@ionic/vue-router'; // Using @ionic/vue-router specifically
+import { createRouter, createWebHistory } from '@ionic/vue-router';
+import HomeView from './views/HomeView.vue'; // New import
 
 // Create a router instance
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      component: HomeView // Define route for root path
+    },
     // This is where our routes would go. For now, we'll leave it empty
     // as we are not creating different pages yet.
   ],
