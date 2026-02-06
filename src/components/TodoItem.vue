@@ -102,15 +102,18 @@ const cancelEditing = () => {
   display: flex;
   align-items: center;
   width: 100%;
+  padding-left: 10px; /* Add space between checkbox and text */
 }
 
 ion-label {
   flex-grow: 1;
   margin-right: 10px;
   white-space: normal; /* Allow text to wrap */
+  align-self: center;
 }
 
 .edit-input {
   flex-grow: 1;
+  align-self: center;
 }
 </style>
