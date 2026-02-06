@@ -18,14 +18,23 @@
 #### **Phase 4: Full-Stack Integration (Connecting Vue to Rails) - IN PROGRESS**
 
 *   **Objective:** To replace all `localStorage` logic in the Vue/Ionic frontend with live HTTP requests to the Rails backend, making our application a true, persistent full-stack solution.
+*   **Key Achievements:**
+    *   Conducted a major end-to-end debugging session, diagnosing and fixing multiple real-world integration issues.
+    *   Resolved Rails API errors: `uninitialized constant Rack::Cors`, `ActionController::RoutingError` (by adding API versioning to the frontend), and `ActiveRecord::RecordNotFound` (by seeding the database).
+    *   Resolved a silent data-loss bug caused by a mismatch between Rails Strong Parameters (`title`) and the frontend payload (`text`), and a database column name mismatch.
 *   **Progress:**
-    *   [x] **Setup Communication Channel:** Installed the `axios` library in the Vue project to handle all HTTP requests.
-    *   [x] **Implement "Read" (Fetch Todos):** Refactored the `TodoApp.vue` component to fetch the initial list of todos from the `/locations/1/todos` endpoint when the component mounts.
-    *   [x] **Implement "Create" (Add Todos):** Refactored the `addTodo` function to send a `POST` request to the API, creating a new todo in the database and updating the UI with the response.
+    *   [x] **Setup Communication Channel:** Installed the `axios` library in the Vue project.
+    *   [x] **Implement "Read" (Fetch Todos):** The app now correctly fetches todos from the Rails API on load.
+    *   [x] **Implement "Create" (Add Todos):** The app now correctly persists new todos to the database.
+    *   [x] **Implement "Update" (Toggle Complete):** The app now correctly persists a todo's `completed` status to the database.
 *   **Next Steps:**
-    1.  [ ] **Implement "Update" (Toggle Complete & Edit Text):** Refactor the `toggleComplete` and `updateTodo` functions to send `PUT`/`PATCH` requests to the API to persist changes.
-    2.  [ ] **Implement "Delete" (Remove Todos):** Refactor the `deleteTodo` function to send a `DELETE` request to the API to permanently remove todos.
+    1.  [ ] **Implement "Update" (Edit Text):** Refactor the `updateTodo` function to send a `PATCH` request to the API to persist text changes.
+    2.  [ ] **Implement "Delete" (Remove Todos):** Refactor the `deleteTodo` function to send a `DELETE` request to the API.
 
 #### **Phase 5: Final Polish & Review**
 
 *   **Objective:** To review the complete application, clean up any remaining issues, and discuss the overall architecture and key learnings.
+*   **Tasks:**
+    *   [ ] Fix minor CSS alignment issue in `TodoItem.vue`.
+    *   [ ] Fix the Vue Router warning: `No match found for location with path "/"`.
+    *   [ ] General code cleanup and review.

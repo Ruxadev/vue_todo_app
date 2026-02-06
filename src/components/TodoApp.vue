@@ -1,31 +1,35 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios';
-import TodoForm from './TodoForm.vue';
-import TodoItem from './TodoItem.vue';
-import { IonList, IonListHeader, IonLabel } from '@ionic/vue';
+import axios from 'axios'
+import TodoForm from './TodoForm.vue'
+import TodoItem from './TodoItem.vue'
+import { IonList, IonListHeader, IonLabel } from '@ionic/vue'
 
-const todos = ref([]);
-const API_URL = 'http://localhost:3000/locations/1/todos'; // Using a fixed location for now
+const todos = ref([])
+const API_URL = 'http://localhost:3000/api/v1/locations/1/todos' // Using a fixed location for now
 
 // --- Data Fetching ---
 const fetchTodos = async () => {
   try {
-    const response = await axios.get(API_URL);
-    todos.value = response.data;
+    const response = await axios.get(API_URL)
+    todos.value = response.data
   } catch (error) {
-    console.error("Error fetching todos:", error);
+    console.error('Error fetching todos:', error)
     // Optionally, set a default or show an error message
     todos.value = [
-      { id: -1, text: 'Error loading todos. Please try again later.', completed: false, isError: true }
-    ];
+      {
+        id: -1,
+        text: 'Error loading todos. Please try again later.',
+        completed: false,
+        isError: true,
+      },
+    ]
   }
-};
+}
 
 onMounted(() => {
-  fetchTodos();
-});
-
+  fetchTodos()
+})
 
 // --- Component Methods (Will be updated in next steps) ---
 
@@ -33,56 +37,69 @@ onMounted(() => {
 
 async function addTodo(todoText) {
   try {
-    const response = await axios.post(API_URL, { todo: { text: todoText, completed: false } });
-    todos.value.push(response.data); // Add the new todo from the API response
+    const response = await axios.post(API_URL, { todo: { text: todoText, completed: false } })
+    todos.value.push(response.data) // Add the new todo from the API response
   } catch (error) {
-    console.error("Error adding todo:", error);
+    console.error('Error adding todo:', error)
     // Optionally, show an error message to the user
   }
 }
 
 function deleteTodo(idToDelete) {
-  todos.value = todos.value.filter((todo) => todo.id !== idToDelete);
+  todos.value = todos.value.filter((todo) => todo.id !== idToDelete)
 }
 
 async function toggleComplete(idToToggle) {
-  const todo = todos.value.find((todo) => todo.id === idToToggle);
-  if (!todo) return;
+  const todo = todos.value.find((todo) => todo.id === idToToggle)
+  if (!todo) return
 
   try {
-    const newCompletedStatus = !todo.completed;
+    const newCompletedStatus = !todo.completed
     const response = await axios.patch(`${API_URL}/${idToToggle}`, {
-      todo: { completed: newCompletedStatus }
-    });
+      todo: { completed: newCompletedStatus },
+    })
 
     // Update the local state with the response from the server
-    const index = todos.value.findIndex(t => t.id === idToToggle);
+    const index = todos.value.findIndex((t) => t.id === idToToggle)
     if (index !== -1) {
-      todos.value[index] = response.data;
+      todos.value[index] = response.data
     }
   } catch (error) {
-    console.error("Error toggling complete status:", error);
+    console.error('Error toggling complete status:', error)
     // Optional: Revert the UI change if the API call fails
   }
 }
 
-function updateTodo(idToUpdate, newText) {
-  const todoToUpdate = todos.value.find((todo) => todo.id === idToUpdate);
-  if (todoToUpdate) {
-    todoToUpdate.text = newText;
+async function updateTodo(idToUpdate, newText) {
+  const todoToUpdate = todos.value.find((todo) => todo.id === idToUpdate)
+  if (!todoToUpdate) return
+
+  try {
+    const response = await axios.patch(`${API_URL}/${idToUpdate}`, {
+      todo: { text: newText },
+    })
+
+    // Update the local state with the response from the server
+    const index = todos.value.findIndex((t) => t.id === idToUpdate)
+    if (index !== -1) {
+      todos.value[index] = response.data
+    }
+  } catch (error) {
+    console.error('Error updating todo text:', error)
+    // Optional: Revert the UI change or show an error message
   }
 }
 
 // Computed property for incomplete todos count
 const incompleteTodosCount = computed(() => {
-  return todos.value.filter(todo => !todo.completed).length;
-});
+  return todos.value.filter((todo) => !todo.completed).length
+})
 </script>
 
 <template>
   <TodoForm @add-todo="addTodo" />
 
-  <p style="text-align: center; margin: 20px 0;">Incomplete Todos: {{ incompleteTodosCount }}</p>
+  <p style="text-align: center; margin: 20px 0">Incomplete Todos: {{ incompleteTodosCount }}</p>
 
   <ion-list>
     <ion-list-header>
