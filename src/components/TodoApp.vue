@@ -45,8 +45,14 @@ async function addTodo(todoText) {
   }
 }
 
-function deleteTodo(idToDelete) {
-  todos.value = todos.value.filter((todo) => todo.id !== idToDelete)
+async function deleteTodo(idToDelete) {
+  try {
+    await axios.delete(`${API_URL}/${idToDelete}`)
+    todos.value = todos.value.filter((todo) => todo.id !== idToDelete)
+  } catch (error) {
+    console.error('Error deleting todo:', error)
+    // Optional: Show an error message to the user
+  }
 }
 
 async function toggleComplete(idToToggle) {
